@@ -19,6 +19,7 @@
   };
 
   Octofilter.prototype.cacheData = {};
+  Octofilter.prototype.currentData = {};
   Octofilter.prototype.selectedFilters = {};
 
   Octofilter.prototype.init = function() {
@@ -57,12 +58,13 @@
             break;
         }
       })
+
       .on('keyup', function(event) {
         switch (event.keyCode || event.which) {
           // Enter and tab
           case 9:
           case 13:
-            var $filter = self.$filtersContainer.find('.octofilter-link.octofilter-active:first'); // Busca o primeiro filtro ativo
+            var $filter = self.$filtersContainer.find('.octofilter-link.octofilter-active:first'); // Finds the first active filter
             if ($filter.length) {
               self.select($filter.data('value'));
             }
@@ -152,6 +154,8 @@
           return name.toLowerCase().indexOf(self.$input.val().toLowerCase()) !== -1;
         };
 
+    self.currentData = {};
+
     for (var category in self.options.categories) {
       if (typeof data[category] === 'string') {
         data[category] = $.parseJSON(data[category]);
@@ -175,6 +179,8 @@
 
           filters.push($('<a/>', { text: value, 'class': klass, 'data-category': category, 'data-value': value }));
         }
+
+        self.currentData[category] = data[category];
       } else {
         filters.push($('<span/>', { text: self.options.categories[category].toLowerCase() + ' not found.', 'class': 'octofilter-not-found' }));
       }
@@ -209,7 +215,7 @@
 
       // Callbacks
       if (typeof callback === 'function') { callback(); }
-      if (typeof this.options.onSearch === 'function') { this.options.onSearch.apply(this, [this.cacheData[query]]); }
+      this.$input.trigger('octofilter.search', [this.cacheData[query]]);
     } else {
       if (typeof this.options.source === 'string') {
         var self = this,
@@ -225,7 +231,7 @@
 
           // Callbacks
           if (typeof callback === 'function') { callback(); }
-          if (typeof self.options.onSearch === 'function') { self.options.onSearch.apply(self, [data]); }
+          self.$input.trigger('octofilter.search', [data]);
         });
       } else {
         if (!this.$filtersContainer) { this.makeFilterContainer(); }
@@ -233,7 +239,7 @@
 
         // Callbacks
         if (typeof callback === 'function') { callback(); }
-        if (typeof this.options.onSearch === 'function') { this.options.onSearch.apply(this, [this.source]); }
+        this.$input.trigger('octofilter.search', [this.currentData]);
       }
     }
   };
@@ -269,11 +275,13 @@
     self.search('');
 
     // Callback
-    if (typeof self.options.onSelect === 'function') { self.options.onSelect.apply(self, [self.selectedFilters]); }
+    self.$input.trigger('octofilter.select', [self.selectedFilters]);
   };
 
   Octofilter.prototype.clear = function(value) {
-    var self = this;
+    var self = this,
+        removedFilter = {};
+
     if (!value) {
       self.$container.find(".octofilter-label").remove();
       self.selectedFilters = {};
@@ -282,14 +290,14 @@
       var $filterLabel = self.$container.find('.octofilter-label[data-value="' + value + '"]').remove(),
           category = $filterLabel.data('category');
 
-      self.selectedFilters[category].splice(self.selectedFilters[category].indexOf(value), 1); // Clean the filters selected
+      removedFilter[category] = self.selectedFilters[category].splice(self.selectedFilters[category].indexOf(value), 1); // Clean the filters selected
     }
 
     self.$input.focus();
     self.search(self.$input.val()); // Remake the search to clear the filter
 
     // Callbacks
-    if (typeof self.options.onClear === 'function') { self.options.onClear.apply(self, [self.selectedFilters]); }
+    self.$input.trigger('octofilter.clear', [removedFilter]);
   };
 
   $.fn.octofilter = function(option) {
