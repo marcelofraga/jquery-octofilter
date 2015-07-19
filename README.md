@@ -15,7 +15,7 @@ Include plugin's CSS and JS:
 
 ```html
 <link rel="stylesheet" href="assets/jquery.octofilter.css">
-<script src="src/jquery.octofilter.js"></script>
+<script src="src/jquery-octofilter.js"></script>
 ```
 
 Call the plugin:
