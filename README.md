@@ -14,7 +14,7 @@ Include jQuery and Bootstrap Tabs:
 Include plugin's CSS and JS:
 
 ```html
-<link rel="stylesheet" href="assets/jquery.octofilter.css">
+<link rel="stylesheet" href="assets/jquery-octofilter.css">
 <script src="src/jquery-octofilter.js"></script>
 ```
 
@@ -23,13 +23,13 @@ Call the plugin:
 ```javascript
 $('input').octofilter({
   source: {
-    category_name: ['Value1', 'Value2']
+    categoryName: ['Value1', 'Value2']
   }
 });
 ```
 
 ## Examples
-[Check out for example's source code here](https://github.com/zigotto/jquery-octofilter/blob/master/demo/index.html)
+[Check out for example's source code here](https://github.com/marcelofraga/jquery-octofilter/blob/master/demo/index.html)
 
 ## Contributing
 
@@ -42,4 +42,4 @@ $('input').octofilter({
 That's it! Enjoy!
 
 ## Licence
-MIT License. Copyright 2013 Zigotto® - http://www.zigotto.com
+MIT License. Copyright (c) 2015 Marcelo Fraga
