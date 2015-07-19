@@ -9,13 +9,13 @@ module.exports = function (grunt) {
     // Metadata.
     pkg: grunt.file.readJSON('package.json'),
     banner: '/*\n' +
-				' *  <%= pkg.title || pkg.name %> - v<%= pkg.version %>\n' +
-				' *  <%= pkg.description %>\n' +
-				' *  <%= pkg.homepage %>\n' +
-				' *\n' +
-				' *  Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
-				' *  MIT License\n' +
-				' */\n',
+      ' *  <%= pkg.title || pkg.name %> - v<%= pkg.version %>\n' +
+      ' *  <%= pkg.description %>\n' +
+      ' *  <%= pkg.homepage %>\n' +
+      ' *\n' +
+      ' *  Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
+      ' *  MIT License\n' +
+      ' */\n',
     // Task configuration.
     clean: {
       files: ['dist']
@@ -67,9 +67,9 @@ module.exports = function (grunt) {
       }
     },
     watch: {
-      compass: {
+      sass: {
         files: ['assets/{,*/}*.{scss,sass}', 'demo/css/{,*/}*.{scss,sass}'],
-        tasks: ['compass']
+        tasks: ['sass']
       },
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
@@ -94,16 +94,9 @@ module.exports = function (grunt) {
     },
     sass: {
       dist: {
+        sourcemap: 'none',
         files: {
-          'assets/css/jquery.octofilter.css': 'assets/sass/jquery.octofilter.sass'
-        }
-      }
-    },
-    compass: {
-      dist: {
-        options: {
-          sassDir: 'assets',
-          cssDir: 'assets'
+          'assets/jquery-octofilter.css': 'assets/jquery-octofilter.scss'
         }
       }
     }
@@ -118,11 +111,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-compass');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'qunit', 'clean', 'concat', 'uglify']);
-  grunt.registerTask('build', ['clean', 'compass', 'concat', 'uglify']);
+  grunt.registerTask('build', ['clean', 'sass', 'concat', 'uglify']);
   grunt.registerTask('server', ['connect', 'watch']);
   grunt.registerTask('test', ['jshint', 'connect', 'qunit']);
 };

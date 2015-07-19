@@ -1,13 +1,13 @@
 {
-  "name": "jquery.octofilter",
+  "name": "jquery-octofilter",
   "title": "jQuery Octofilter",
   "version": "0.0.1",
   "description": "A jQuery plugin to categorized suggestions.",
   "keywords": [
     "jquery-plugin"
   ],
-  "homepage": "https://github.com/zigotto/jquery-octofilter",
-  "bugs": "https://github.com/zigotto/jquery-octofilter/issues",
+  "homepage": "https://github.com/marcelofraga/jquery-octofilter",
+  "bugs": "https://github.com/marcelofraga/jquery-octofilter/issues",
   "author": {
     "name": "Marcelo Fraga",
     "email": "marcelo.fraga@me.com",
@@ -15,23 +15,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zigotto/jquery-octofilter.git"
+    "url": "https://github.com/marcelofraga/jquery-octofilter.git"
   },
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ],
+  "license": "MIT",
+  "main": "dist/jquery-octofilter.js",
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.1.1",
-    "grunt-contrib-qunit": "~0.1.1",
-    "grunt-contrib-concat": "~0.1.2",
-    "grunt-contrib-uglify": "~0.1.1",
-    "grunt-contrib-watch": "~0.2.0",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-connect": "~0.3.0",
-    "time-grunt": "~0.1.1",
-    "grunt-contrib-sass": "~0.5.0",
-    "grunt-contrib-compass": "~0.5.0"
+    "grunt": "~0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-connect": "^0.10.1",
+    "grunt-contrib-jshint": "~0.11.2",
+    "grunt-contrib-qunit": "~0.7.0",
+    "grunt-contrib-uglify": "~0.9.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-sass": "~0.9.2",
+    "time-grunt": "~1.2.1"
   }
 }
